@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-import { Animated, Platform, StyleSheet, View } from 'react-native';
+import { Animated, Platform, StyleSheet, View, Dimensions } from 'react-native';
 
 import HeaderTitle from './HeaderTitle';
 import HeaderBackButton from './HeaderBackButton';
@@ -33,8 +33,16 @@ type HeaderState = {
   },
 };
 
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+const isIos = Platform.OS === 'ios';
+const isIphoneX = isIos && Dimensions.get('window').height === 812;
+
+const APPBAR_HEIGHT = isIos ? 44 : 56;
+let STATUSBAR_HEIGHT = 0;
+if (isIos && isIphoneX) {
+  STATUSBAR_HEIGHT = 44;
+} else if (isIos) {
+  STATUSBAR_HEIGHT = 20;
+}
 const TITLE_OFFSET = Platform.OS === 'ios' ? 70 : 56;
 
 class Header extends React.PureComponent<void, HeaderProps, HeaderState> {

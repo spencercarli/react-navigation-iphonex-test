@@ -8,7 +8,9 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SampleText from './SampleText';
+
 import TabBarBottom from './navigation/TabView/TabBarBottom';
+import Header from './navigation/Header/Header';
 
 const MyNavScreen = ({ navigation, banner }) => (
   <ScrollView>
@@ -54,6 +56,7 @@ const MainTab = StackNavigator({
     path: '/',
     navigationOptions: {
       title: 'Welcome',
+      header: (props) => <Header {...props} />,
     },
   },
   Profile: {
@@ -61,6 +64,7 @@ const MainTab = StackNavigator({
     path: '/people/:name',
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.name}'s Profile!`,
+      header: (props) => <Header {...props} />,
     }),
   },
 });
@@ -71,12 +75,14 @@ const SettingsTab = StackNavigator({
     path: '/',
     navigationOptions: () => ({
       title: 'Settings',
+      header: (props) => <Header {...props} />,
     }),
   },
   NotifSettings: {
     screen: MyNotificationsSettingsScreen,
     navigationOptions: {
       title: 'Notifications',
+      header: (props) => <Header {...props} />,
     },
   },
 });

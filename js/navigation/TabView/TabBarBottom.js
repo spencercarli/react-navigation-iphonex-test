@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { PureComponent } from 'react';
-import { Animated, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { Animated, TouchableWithoutFeedback, StyleSheet, Platform, Dimensions } from 'react-native';
 import TabBarIcon from './TabBarIcon';
 
 import type {
@@ -182,13 +182,16 @@ export default class TabBarBottom extends PureComponent<
   }
 }
 
+const isIphoneX = Platform.OS === 'ios' && Dimensions.get('window').height === 812;
+const HOME_ACTIVITY_INDICATOR = isIphoneX ? 34 : 0;
 const styles = StyleSheet.create({
   tabBar: {
-    height: 49, // Default tab bar height in iOS 10
+    height: 49 + HOME_ACTIVITY_INDICATOR, // Default tab bar height in iOS 10
     flexDirection: 'row',
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: 'rgba(0, 0, 0, .3)',
     backgroundColor: '#F7F7F7', // Default background color in iOS 10
+    paddingBottom: HOME_ACTIVITY_INDICATOR,
   },
   tab: {
     flex: 1,
